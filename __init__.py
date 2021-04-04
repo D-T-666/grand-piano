@@ -1,1 +1,1 @@
-__all__ = ['barchart']
+__all__ = ['barchart', 'chart_template']

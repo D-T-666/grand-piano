@@ -10,13 +10,19 @@ class SimpleBarChart(chart_template.simple_chart.SimpleChart):
 		s = []
 		label = []
 
-		factor = (max(self.data)-min(self.data)+2)/h
-		offset = -min(self.data)/factor+1
+		sep = self.separator
+		sep_style = self.separator_style
+		sep_str = f'[{sep_style}]{sep}[/{sep_style}]' if sep_style else sep
+
+		factor = (max(self.data)-min(self.data)+1)/h
+		offset = -min(self.data)/factor+2
 		for y in range(h):
-			l = ""
+			rl = " "
+			l = " "
 			for ind, i in enumerate(self.data):
 				c = '█' if (h-y) < i/factor+offset else ('▄' if (h-y) == i/factor+offset else ' ')
-				l += f" [{self.colors[ind]}]{c*int(w//len(self.data)-2)}[/{self.colors[ind]}] "
-			label= '{:0>5.2f}'.format((h-y-offset)*factor)
-			s.append([label if y%3 == 0 else " "*5, l])
+				rl += f"{sep if ind != 0 else ''}{c*int(w//len(self.data)-len(sep))}"
+				l += f"{sep_str if ind != 0 else ''}[{self.colors[ind]}]{c*int(w//len(self.data)-len(sep))}[/{self.colors[ind]}]"
+			label= '{:0>5.1f}'.format((h-y-offset)*factor)
+			s.append([label if y%3 == 0 else " "*5, rl+" ", l+" "])
 		return s
