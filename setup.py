@@ -7,7 +7,7 @@ setup(
     author='Dimitri Tabatadze',
     author_email='tabatadzedima20@gmail.com',
     # Needed to actually package something
-    packages=['grand-piano', 'grand-piano.barchart'],
+    packages=['pianoplot', 'pianoplot.barchart'],
     # Needed for dependencies
     install_requires=['rich'],
     # *strongly* suggested for sharing
