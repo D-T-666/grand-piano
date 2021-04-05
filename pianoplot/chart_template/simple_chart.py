@@ -1,8 +1,9 @@
 from ..terminal_size import get_terminal_size
 from random import randint
+from rich import print
 
 class SimpleChart:
-	def __init__(self, name=""):
+	def __init__(self, name="unnamed chart"):
 		self.name = name
 		self.w, self.h = get_terminal_size()
 		self.margin = {
@@ -15,9 +16,6 @@ class SimpleChart:
 		self.colors = [f'rgb({randint(64,255)},{randint(16,255)},{randint(64,255)})' for i in range(100)]
 
 	def __str__(self):
-		return self.render()
-
-	def render(self):
 		g = self.graph()
 		gw= len(g[0][1])
 		w = (self.w-2-self.margin['r']-self.margin['l'])
@@ -26,6 +24,10 @@ class SimpleChart:
 		s += "\n".join([f"{' '*((w-gw)//4)}{label}{' '*((w-gw+2)//4)}┃{a}┃" for label, ra, a in g])+"\n"
 		s += f"{' '*(self.margin['l']+(w-gw)//2)}┗{'━'*gw}┛	"
 		return s
+
+	def render(self):
+		self.w, self.h = get_terminal_size()
+		print(str(self))
 
 	def plot(self, data, separator=" ", separator_style=""):
 		self.data = data
